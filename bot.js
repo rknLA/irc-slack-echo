@@ -45,3 +45,7 @@ client.addListener('message', function(from, to, message) {
   req.write(postBody);
   req.end();
 });
+
+client.addListener('error', function(message) {
+  console.log("ERROR: " + message);
+});
