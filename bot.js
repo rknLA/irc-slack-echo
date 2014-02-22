@@ -1,20 +1,28 @@
 var irc = require('irc');
 var https = require('https');
+var _ = require('underscore');
 var config = require('./config');
 
-var client = new irc.Client('irc.freenode.net', 'rdiobot', {
-  channels: ['#rdio']
+var client = new irc.Client(config.irc.server, config.irc.username, {
+  channels: [config.irc.channel]
 });
 
 var slackbotEchoOptions = {
-  hostname: config.slackHost,
+  hostname: config.slack.host,
   port: 443,
-  path: '/services/hooks/incoming-webhook?token=' + config.webhookToken,
+  path: '/services/hooks/incoming-webhook?token=' + config.slack.incomingWebhookToken,
   method: 'POST'
 };
 
 client.addListener('message', function(from, to, message) {
   console.log(from + ' => ' + to + ': ' + message);
+
+  // sub irc usernames for slack usernames
+  _.each(config.userMap, function(val, key, list) {
+    var re = new RegExp("@?" + key, "g");
+    message = message.replace(re, "<@" + val + ">");
+  });
+
   var postContent = {
     channel: '#irc-echo',
     username: 'IRCbot',
