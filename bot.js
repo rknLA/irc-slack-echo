@@ -24,8 +24,8 @@ client.addListener('message', function(from, to, message) {
   });
 
   var postContent = {
-    channel: '#irc-echo',
-    username: 'IRCbot',
+    channel: config.slack.echoChannel,
+    username: config.slack.botName,
     text: "[" + to + "] " + from + ": " + message
   };
 

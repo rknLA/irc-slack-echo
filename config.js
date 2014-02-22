@@ -1,7 +1,9 @@
 module.exports = {
   slack: {
     host: 'my.slack.com',
-    incomingWebhookToken: 'your incoming webhook token'
+    incomingWebhookToken: 'your incoming webhook token',
+    echoChannel: '#irc-echo',
+    botName: 'IRCBot'
   },
   irc: {
     server: 'your.irc.net',
