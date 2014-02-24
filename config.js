@@ -7,7 +7,7 @@ module.exports = {
   },
   irc: {
     server: 'your.irc.net',
-    username: 'slackbot',
+    nick: 'slackbot',
     channel: '#mychan'
   },
 

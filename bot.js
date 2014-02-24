@@ -3,8 +3,15 @@ var https = require('https');
 var _ = require('underscore');
 var config = require('./config');
 
-var client = new irc.Client(config.irc.server, config.irc.username, {
-  channels: [config.irc.channel]
+var client = new irc.Client(config.irc.server, config.irc.nick, {
+  channels: [config.irc.channel],
+  port: 6697,
+  debug: true,
+  showErrors: true,
+  secure: true,
+  autoConnect: false,
+  autoRejoin: true,
+  retryCount: 3
 });
 
 var slackbotEchoOptions = {
@@ -48,4 +55,9 @@ client.addListener('message', function(from, to, message) {
 
 client.addListener('error', function(message) {
   console.log("ERROR: " + message);
+});
+
+console.log("Connecting to IRC");
+client.connect(function(){
+  console.log("connect called back", arguments);
 });
