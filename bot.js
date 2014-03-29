@@ -1,7 +1,14 @@
+var fs = require('fs');
 var irc = require('irc');
 var https = require('https');
 var _ = require('underscore');
 var config = require('./config');
+
+var userMap = JSON.parse(fs.readFileSync('userMap.json', 'utf8'));
+
+/*
+ * Set up the IRC client
+ */
 
 var client = new irc.Client(config.irc.server, config.irc.nick, {
   channels: [config.irc.channel],
@@ -14,6 +21,11 @@ var client = new irc.Client(config.irc.server, config.irc.nick, {
   retryCount: 3
 });
 
+
+/*
+ * Set up the slackbot echoer
+ */
+
 var slackbotEchoOptions = {
   hostname: config.slack.host,
   port: 443,
@@ -21,19 +33,11 @@ var slackbotEchoOptions = {
   method: 'POST'
 };
 
-client.addListener('message', function(from, to, message) {
-  console.log(from + ' => ' + to + ': ' + message);
-
-  // sub irc usernames for slack usernames
-  _.each(config.userMap, function(val, key, list) {
-    var re = new RegExp("@?" + key, "g");
-    message = message.replace(re, "<@" + val + ">");
-  });
-
+var sendEcho = function(echoText) {
   var postContent = {
     channel: config.slack.echoChannel,
     username: config.slack.botName,
-    text: "[" + to + "] " + from + ": " + message
+    text: echoText
   };
 
   var postBody = JSON.stringify(postContent);
@@ -51,6 +55,31 @@ client.addListener('message', function(from, to, message) {
 
   req.write(postBody);
   req.end();
+};
+
+var mapIrcHandlesToSlack = function(originalMessage) {
+  var modifiedMessage = originalMessage;
+  _.each(userMap, function(val, key, list) {
+    var re = new RegExp("@?" + key, "g");
+    modifiedMesage = modifiedMessage.replace(re, "<@" + val + ">");
+  });
+  return modifiedMessage;
+}
+
+
+
+/*
+ * Set up the IRC listeners
+ */
+
+client.addListener('message', function(from, to, message) {
+  var room = to;
+  console.log(from + ' => ' + room + ': ' + message);
+
+  message = mapIrcHandlesToSlack(message);
+
+  var echoMessage = "[" + room + "] " + from + ": " + message;
+  sendEcho(echoMessage);
 });
 
 client.addListener('error', function(message) {

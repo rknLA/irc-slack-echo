@@ -10,8 +10,4 @@ module.exports = {
     nick: 'slackbot',
     channel: '#mychan'
   },
-
-  userMap: {
-    irc_username: "slack_username"
-  }
 };
