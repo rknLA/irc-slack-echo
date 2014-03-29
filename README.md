@@ -12,6 +12,6 @@ Setup
 * Fork the repo and run `npm install`
 * Create a new incoming web hook on Slack (https://your.slack.com/services/new/incoming-webhook)
 * Open the config file and update the parameters.
-* Find a server to run it on, and `node bot.js`
+* Find a server to run it on, and `node .`
 
 Note that the user map listens for IRC mentions with an optional @ character, and automatically wraps the Slack username in <@username> so that Slack sends notifications appropriately.
