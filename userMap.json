@@ -1,3 +1,8 @@
 {
+  // you'll get a parse error unless you remove these comments
+  // i've kept the comments in so this deliberately breaks.
+  // this file will eventually be dynamically written to, but
+  // in the meantime, bootstrap it with one or two irc/slack pairs.
+
   /* "irc_username": "slack_username", */
 }
