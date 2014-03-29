@@ -60,8 +60,8 @@ var sendEcho = function(echoText) {
 var mapIrcHandlesToSlack = function(originalMessage) {
   var modifiedMessage = originalMessage;
   _.each(userMap, function(val, key, list) {
-    var re = new RegExp("@?" + key, "g");
-    modifiedMesage = modifiedMessage.replace(re, "<@" + val + ">");
+    var re = new RegExp("@?" + key, 'gi');
+    modifiedMessage = modifiedMessage.replace(re, "<@" + val + ">");
   });
   return modifiedMessage;
 }
