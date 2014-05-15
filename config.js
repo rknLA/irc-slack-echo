@@ -6,7 +6,8 @@ module.exports = {
     outgoingWebhookServer: {
       port: 666,
       domain: 'your.webhook.server.com',
-      hookPath: '/irc-echo'
+      hookPath: '/irc-echo',
+      localhost: 'localhost'
     },
     echoChannel: '#irc-echo',
     botName: 'IRCBot',
