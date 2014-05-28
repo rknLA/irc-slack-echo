@@ -9,6 +9,7 @@ It's designed so that it can be easily configured to work with your own IRC chan
 Setup
 -----
 
+* Make sure you're running node 0.10.26.  Other versions might work, but are untested.
 * Fork the repo and run `npm install`
 * Create a new Incoming Web Hook on Slack (https://your.slack.com/services/new/incoming-webhook)
 * Create a new Outgoing Web Hook on Slack and grab the token from it.
