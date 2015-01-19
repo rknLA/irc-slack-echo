@@ -1,6 +1,6 @@
 module.exports = {
   slack: {
-    host: 'my.slack.com',
+    // URL sans 'https://hooks.slack.com/services/' prefix:
     incomingWebhookToken: 'your incoming webhook token',
     outgoingWebhookToken: 'your outgoing webhook token',
     outgoingWebhookServer: {
