@@ -8,8 +8,6 @@ module.exports = {
       domain: 'your.webhook.server.com',
       hookPath: '/irc-echo'
     },
-    echoChannel: '#irc-echo',
-    botName: 'IRCBot',
   },
   irc: {
     server: 'your.irc.net',
